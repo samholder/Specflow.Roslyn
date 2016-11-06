@@ -17,37 +17,41 @@ namespace SampleAnalyzer.Test.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("CapitalizeTypeName")]
+    [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
     public partial class CapitalizeTypeNameFeature
     {
         
-        private TechTalk.SpecFlow.ITestRunner testRunner;
+        private static TechTalk.SpecFlow.ITestRunner testRunner;
         
 #line 1 "CapitalizeTypeName.feature"
 #line hidden
         
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
+        public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CapitalizeTypeName", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute()]
+        public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
         
-        [NUnit.Framework.SetUpAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
+            if (((testRunner.FeatureContext != null) 
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "CapitalizeTypeName")))
+            {
+                SampleAnalyzer.Test.Features.CapitalizeTypeNameFeature.FeatureSetup(null);
+            }
         }
         
-        [NUnit.Framework.TearDownAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -63,8 +67,9 @@ namespace SampleAnalyzer.Test.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Capitalize type name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Capitalize type name")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CapitalizeTypeName")]
         public virtual void CapitalizeTypeName()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Capitalize type name", ((string[])(null)));
@@ -79,7 +84,10 @@ this.ScenarioSetup(scenarioInfo);
                     "\r\n\r\n   namespace ConsoleApplication1\r\n   {\r\n       class TypeName\r\n       {   \r\n" +
                     "       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
- testRunner.When("process this class with the code analyzer \"SampleAnalyzerAnalyzer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I\'m using the capitalise type name analyser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.When("process this class with the code analyzer \"SampleAnalyzer.SampleAnalyzerAnalyzer\"" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -91,13 +99,13 @@ this.ScenarioSetup(scenarioInfo);
                         "Type name \'TypeName\' contains lowercase letters",
                         "Warning",
                         "Test0.cs,11,15"});
-#line 23
+#line 24
  testRunner.Then("I should get the diagnostic analysis results", ((string)(null)), table1, "Then ");
-#line 26
+#line 27
  testRunner.When("I apply the fix \"SampleAnalyzerCodeFixProvider\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 27
- testRunner.Then("I should have the file \"Test0.cs\" with the content", "using System;\r\n   using System.Collections.Generic;\r\n   using System.Linq;\r\n   us" +
+#line 28
+ testRunner.Then("the default project should have the file \"Test0.cs\" with the content", "using System;\r\n   using System.Collections.Generic;\r\n   using System.Linq;\r\n   us" +
                     "ing System.Text;\r\n   using System.Threading.Tasks;\r\n   using System.Diagnostics;" +
                     "\r\n\r\n   namespace ConsoleApplication1\r\n   {\r\n       class TYPENAME\r\n       {   \r\n" +
                     "       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
