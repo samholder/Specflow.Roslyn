@@ -38,23 +38,24 @@ namespace SampleAnalyzer.Test.Steps
             solutionContext.AddDocumentToProject(documentName, content, SolutionContext.DefaultProjectName);
         }
 
-        [When(@"process this class with the code analyzer ""(.*)""")]
-        public void WhenProcessThisClassWithTheCodeAnalyzer(string p0)
+        [When(@"I analyzer the solution with the diagnostic analyzer")]
+        public void WhenProcessThisClassWithTheCodeAnalyzer()
         {
             diagnosticContext.AnalyzeProjects(solutionContext.Solution.Projects.SelectMany(p=>p.Documents).ToList());
         }
 
-        [Given(@"I'm using the capitalise type name analyser")]
+        [Given(@"I'm using the capitalise type name analyser and fix")]
         public void GivenIMUsingTheCapitaliseTypeNameAnalyser()
         {
             diagnosticContext.Analyzer = new SampleAnalyzerAnalyzer();
+            diagnosticContext.CodeFixProvider = new SampleAnalyzerCodeFixProvider();
         }
 
 
         [Then(@"I should get the diagnostic analysis results")]
-        public void ThenIShouldGetTheDiagnosticAnalysisResults(List<Diagnostic> expectedDiagnostics)
+        public void ThenIShouldGetTheDiagnosticAnalysisResults(List<DiagnosticResult> expectedDiagnostics)
         {
-            ScenarioContext.Current.Pending();
+            diagnosticContext.VerifyDiagnosticResults(expectedDiagnostics.ToArray());            
         }
 
         [StepArgumentTransformation]
@@ -86,10 +87,10 @@ namespace SampleAnalyzer.Test.Steps
             return resultLocations.ToArray();
         }
 
-        [When(@"I apply the fix ""(.*)""")]
-        public void WhenIApplyTheFix(string p0)
+        [When(@"I apply the fix")]
+        public void WhenIApplyTheFix()
         {
-            ScenarioContext.Current.Pending();
+            diagnosticContext.ApplyCodeFix(solutionContext.Solution.Projects.SelectMany(p => p.Documents).ToList());
         }
 
         [Then(@"the default project should have the file ""(.*)"" with the content")]

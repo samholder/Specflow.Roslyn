@@ -19,12 +19,12 @@ Scenario: Capitalize type name
         }
     }
 	"""
-	And I'm using the capitalise type name analyser
-	When process this class with the code analyzer "SampleAnalyzer.SampleAnalyzerAnalyzer"
+	And I'm using the capitalise type name analyser and fix
+	When I analyzer the solution with the diagnostic analyzer
 	Then I should get the diagnostic analysis results 
 	| Id             | Message                                         | Severity | Locations      |
-	| SampleAnalyzer | Type name 'TypeName' contains lowercase letters | Warning  | Test0.cs,11,15 |
-	When I apply the fix "SampleAnalyzerCodeFixProvider"
+	| SampleAnalyzer | Type name 'TypeName' contains lowercase letters | Warning  | Test0.cs,10,14 |
+	When I apply the fix 
 	Then the default project should have the file "Test0.cs" with the content
 	"""
 	using System;
