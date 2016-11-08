@@ -1,23 +1,17 @@
-using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
-using System.Threading;
-using Microsoft.CodeAnalysis.CodeActions;
-using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TestHelper;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace SampleAnalyzer.Test.Steps
+namespace Specflow.Roslyn
 {
-    using System.Collections.Generic;
-    using System.Collections.Immutable;
-    using System.Linq;
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.Diagnostics;
-
     public class DiagnosticContext
     {
-        public void AnalyzeProjects(List<Document> documents)
+        public void AnalyzeSolution(Solution solution)
         {
+            List<Document> documents = solution.Projects.SelectMany(p => p.Documents).ToList();
             var projects = new HashSet<Project>();
             foreach (var document in documents)
             {
@@ -59,8 +53,7 @@ namespace SampleAnalyzer.Test.Steps
             return diagnostics.OrderBy(d => d.Location.SourceSpan.Start).ToArray();
         }
 
-        public DiagnosticAnalyzer Analyzer { get; set; }
-        public SampleAnalyzerCodeFixProvider CodeFixProvider { get; set; }
+        public DiagnosticAnalyzer Analyzer { get; set; }        
 
         public void VerifyDiagnosticResults(params DiagnosticResult[] expectedResults)
         {
@@ -219,36 +212,7 @@ namespace SampleAnalyzer.Test.Steps
             return builder.ToString();
         }
 
-        public void ApplyCodeFix(List<Document> documents)
-        {
-            foreach (var diagnostic in Results)
-            {
-                foreach (var document in documents)
-                {
-                    var actions = new List<CodeAction>();
-                    var context = new CodeFixContext(document, diagnostic, (a, d) => actions.Add(a), CancellationToken.None);
-                    CodeFixProvider.RegisterCodeFixesAsync(context).Wait();
-                    var fixedDocument = ApplyFix(document,actions.ElementAt(0));
-                }
-                
-            }
+        
             
-        }
-
-        private static Document ApplyFix(Document document, CodeAction codeAction)
-        {
-            var operations = codeAction.GetOperationsAsync(CancellationToken.None).Result;
-            var solution = operations.OfType<ApplyChangesOperation>().Single().ChangedSolution;
-            return solution.GetDocument(document.Id);
-        }
-    }
-
-    public class ValidationException : Exception
-    {
-        public ValidationException(string message)
-            :base(message)
-        {
-            
-        }
     }
 }

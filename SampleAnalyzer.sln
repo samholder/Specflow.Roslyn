@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAnalyzer.Test", "Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAnalyzer.Vsix", "SampleAnalyzer\SampleAnalyzer.Vsix\SampleAnalyzer.Vsix.csproj", "{4730EE5C-76E0-437A-B08B-4E6068B251D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecflowRoslyn", "SpecflowRoslyn\SpecflowRoslyn.csproj", "{C909E942-BCA5-4680-B69D-4929DA4FD0DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specflow.Roslyn", "SpecflowRoslyn\Specflow.Roslyn.csproj", "{C909E942-BCA5-4680-B69D-4929DA4FD0DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

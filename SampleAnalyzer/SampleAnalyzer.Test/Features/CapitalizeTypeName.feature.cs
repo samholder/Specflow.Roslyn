@@ -79,14 +79,12 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("I have a default solution with a default project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
- testRunner.And("I have the file \"Test0.cs\" with the content", "using System;\r\n   using System.Collections.Generic;\r\n   using System.Linq;\r\n   us" +
-                    "ing System.Text;\r\n   using System.Threading.Tasks;\r\n   using System.Diagnostics;" +
-                    "\r\n\r\n   namespace ConsoleApplication1\r\n   {\r\n       class TypeName\r\n       {   \r\n" +
-                    "       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
+ testRunner.And("I have the file \"Test0.cs\" with the content", "   namespace ConsoleApplication1\r\n   {\r\n       class TypeName\r\n       {   \r\n     " +
+                    "  }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
  testRunner.And("I\'m using the capitalise type name analyser and fix", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 23
- testRunner.When("I analyzer the solution with the diagnostic analyzer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+ testRunner.When("I analyze the solution with the diagnostic analyzer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
@@ -97,17 +95,63 @@ this.ScenarioSetup(scenarioInfo);
                         "SampleAnalyzer",
                         "Type name \'TypeName\' contains lowercase letters",
                         "Warning",
-                        "Test0.cs,10,14"});
-#line 24
+                        "Test0.cs,3,14"});
+#line 17
  testRunner.Then("I should get the diagnostic analysis results", ((string)(null)), table1, "Then ");
-#line 27
+#line 20
  testRunner.When("I apply the fix", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 28
- testRunner.Then("the default project should have the file \"Test0.cs\" with the content", "using System;\r\n   using System.Collections.Generic;\r\n   using System.Linq;\r\n   us" +
-                    "ing System.Text;\r\n   using System.Threading.Tasks;\r\n   using System.Diagnostics;" +
-                    "\r\n\r\n   namespace ConsoleApplication1\r\n   {\r\n       class TYPENAME\r\n       {   \r\n" +
-                    "       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.Then("the default project should have the file \"Test0.cs\" with the content", "   namespace ConsoleApplication1\r\n   {\r\n       class TYPENAME\r\n       {   \r\n     " +
+                    "  }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Capitalize type name in classes")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CapitalizeTypeName")]
+        public virtual void CapitalizeTypeNameInClasses()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Capitalize type name in classes", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 32
+ testRunner.Given("I have a default solution with a default project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 33
+ testRunner.And("I have the file \"Test0.cs\" with the content", "   namespace ConsoleApplication1\r\n   {\r\n       class TypeName\r\n       {   \r\n     " +
+                    "  }\r\n\r\n       class TypeName2\r\n       {   \r\n       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+ testRunner.And("I\'m using the capitalise type name analyser and fix", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+ testRunner.When("I analyze the solution with the diagnostic analyzer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Id",
+                        "Message",
+                        "Severity",
+                        "Locations"});
+            table2.AddRow(new string[] {
+                        "SampleAnalyzer",
+                        "Type name \'TypeName\' contains lowercase letters",
+                        "Warning",
+                        "Test0.cs,3,14"});
+            table2.AddRow(new string[] {
+                        "SampleAnalyzer",
+                        "Type name \'TypeName2\' contains lowercase letters",
+                        "Warning",
+                        "Test0.cs,7,14"});
+#line 48
+ testRunner.Then("I should get the diagnostic analysis results", ((string)(null)), table2, "Then ");
+#line 52
+ testRunner.When("I apply the first fix", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 53
+ testRunner.And("I apply the second fix", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 54
+ testRunner.Then("the default project should have the file \"Test0.cs\" with the content", "   namespace ConsoleApplication1\r\n   {\r\n       class TYPENAME\r\n       {   \r\n     " +
+                    "  }\r\n\r\n       class TYPENAME2\r\n       {   \r\n       }\r\n   }", ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
