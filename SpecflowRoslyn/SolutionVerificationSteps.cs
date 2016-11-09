@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace Specflow.Roslyn
@@ -20,7 +19,10 @@ namespace Specflow.Roslyn
             var document =
                 fixContext.Solution.Projects.First(p => p.Name == SolutionContext.DefaultProjectName)
                     .Documents.First(d => d.Name == filename);
-            document.TextRepresentation().Should().Be(multilineText);
+            if (document.TextRepresentation() != multilineText)
+            {
+                throw new ValidationException(string.Format("The file {0} did not contain the expected text. Expected to find {1} but contents were {2}", filename, multilineText, document.TextRepresentation()));
+            }
         }
     }
 }
